@@ -4,8 +4,6 @@ import System.IO
 import Data.Maybe (fromMaybe)
 import Data.Map (Map, fromList, lookup)
 
--- Task #1 - Part 1
--- I have removed the Stock keyword from PLSentence as it is not needed here
 
 data PLSentence =
   PLAtomic Int |
@@ -16,7 +14,6 @@ data PLSentence =
   PLIff PLSentence PLSentence
   deriving (Eq, Show)
 
--- Task #1 - Part 2
 -- Running this function as 'plSize (PLAnd (PLAtomic 2) (PLNot (PLOr (PLAtomic 2) (PLAtomic 2))))'
 -- returns a value of 3 nodes.
 
@@ -28,12 +25,10 @@ plSize (PLOr sentence1 sentence2) = 1 + plSize sentence1 + plSize sentence2
 plSize (PLIf sentence1 sentence2) = 1 + plSize sentence1 + plSize sentence2
 plSize (PLIff sentence1 sentence2) = 1 + plSize sentence1 + plSize sentence2
 
--- Task #2 - Part 1
 -- Interpretation will be provided to the function in the form (fromList [(Int, Bool),..])
 
 type Interpretation = Map Int Bool
 
--- Task #2 - Part 2
 -- 'evaluate' function was run with following values: 'evaluate (PLAnd (PLAtomic 5) (PLOr (PLAtomic 2) (PLAtomic 3))) (fromList [(2, True), (3, False), (5, False)]) '
 -- giving value: False
 
@@ -45,13 +40,11 @@ evaluate (PLOr sentence1 sentence2) ls = evaluate sentence1 ls || evaluate sente
 evaluate (PLIf sentence1 sentence2) ls = not (evaluate sentence1 ls) || evaluate sentence2 ls
 evaluate (PLIff sentence1 sentence2) ls = evaluate sentence1 ls == evaluate sentence2 ls
 
--- Task #3 - Part 1
 
 data NORSentence =
   NORAtomic Int |
   NOR NORSentence NORSentence
 
--- Task #3 - Part 2
 -- Running the function as 'norSize (NOR (NOR (NORAtomic 3) (NORAtomic 3)) (NORAtomic 3))'
 -- returns a value of 2 nodes.
 
@@ -59,7 +52,6 @@ norSize :: NORSentence -> Int
 norSize (NORAtomic i) = 0
 norSize (NOR sentence1 sentence2) = 1 + norSize sentence1 + norSize sentence2
 
--- Task #3 - Part 3
 -- Running the function as 'evaluateNOR (NOR (NORAtomic 2) (NORAtomic 3)) (fromList [(2, True), (3, True)])'
 -- returns a value of 'False'.
 
